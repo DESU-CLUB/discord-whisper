@@ -13,15 +13,17 @@ Discord-Whisper is a powerful Discord bot that leverages OpenAI Whisper to provi
 
 1. Run this on your terminal: `pip install -r requirements.txt`
 
-2. Invite Discord-Whisper to your server using the provided invite link.
+2. Invite Discord-Whisper to your server.
 
-3. Grant the bot the necessary permissions to join voice channels and access voice-related features.
+3. Add the bot key to botkey.txt.
 
-4. Use the `!record` command to summon the bot into a voice channel. The bot will automatically start recording the conversation.
+4. Grant the bot the necessary permissions to join voice channels and access voice-related features.
 
-5. Use the `!stop_record` command to stop the recording. The bot will then transcribe the entirety of the conversation into a discord message, and send it to the channel `!record` was sent to. 
+5. Use the `!record` command to summon the bot into a voice channel. The bot will automatically start recording the conversation.
 
-6. Enjoy the convenience of having voice channel transcriptions in your Discord server!
+6. Use the `!stop_record` command to stop the recording. The bot will then transcribe the entirety of the conversation into a discord message, and send it to the channel `!record` was sent to. 
+
+7. Enjoy the convenience of having voice channel transcriptions in your Discord server!
 
 
 ##TODO
