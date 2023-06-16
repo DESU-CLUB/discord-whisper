@@ -19,7 +19,7 @@ Discord-Whisper is a powerful Discord bot that leverages OpenAI Whisper to provi
 
 4. Use the `!record` command to summon the bot into a voice channel. The bot will automatically start recording the conversation.
 
-5. # Use the `!stop_record` command to stop the recording. The bot will then transcribe the entirety of the conversation into a discord message, and send it to the channel `!record` was sent to. 
+5. Use the `!stop_record` command to stop the recording. The bot will then transcribe the entirety of the conversation into a discord message, and send it to the channel `!record` was sent to. 
 
 6. Enjoy the convenience of having voice channel transcriptions in your Discord server!
 
