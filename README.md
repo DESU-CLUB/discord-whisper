@@ -1,6 +1,6 @@
 # Discord-Whisper
 
-Discord-Whisper is a powerful Discord bot that leverages OpenAI Whisper to provide real-time transcription in Discord voice channels.
+Discord-Whisper is a powerful open source Discord bot that leverages OpenAI Whisper to provide real-time transcription in Discord voice channels.
 
 ## Features
 
@@ -28,7 +28,7 @@ Discord-Whisper is a powerful Discord bot that leverages OpenAI Whisper to provi
 ## Example Output
 ![Screenshot 1](demo_images/example.png)
 
-##TODO
+## TODO
 
 1. Add additional commands to customize the bot's behavior. For example, `!whisper language en` sets the transcription language to English.
 
@@ -43,6 +43,9 @@ Discord-Whisper is a powerful Discord bot that leverages OpenAI Whisper to provi
 ## Feedback and Support
 
 If you encounter any issues, have suggestions, or need support, please open an issue at  the Discord-Whisper GitHub repository [here](https://github.com/DESU-CLUB/discord-whisper)
+
+## Credits
+Credits to OpenAI for their Whisper model, and pycord for voice channel recording capabilities.
 
 ## Conclusion
 
