@@ -90,4 +90,6 @@ async def stop_record(ctx):
 
 
 if __name__ == "__main__":
-    bot.run('MTExMTkxMDkzNDUzMzkwMjMzNg.GyMKbx.RxIa_a38kk5YDBGGUHaGAutDk8krDLuOEvilKc')
+with open('botkey.txt','r') as f:
+		key = f.read()
+    bot.run(key)
