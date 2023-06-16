@@ -13,7 +13,7 @@ Discord-Whisper is a powerful Discord bot that leverages OpenAI Whisper to provi
 
 1. Run this on your terminal: `pip install -r requirements.txt`
 
-2. Invite Discord-Whisper to your server.
+2. Invite Discord-Whisper to your server. A good guide on how to do so can be found [here](https://www.writebots.com/discord-bot-token/).
 
 3. Add the bot key to botkey.txt.
 
@@ -25,6 +25,8 @@ Discord-Whisper is a powerful Discord bot that leverages OpenAI Whisper to provi
 
 7. Enjoy the convenience of having voice channel transcriptions in your Discord server!
 
+## Example Output
+![Screenshot 1](demo_images/example.png)
 
 ##TODO
 
