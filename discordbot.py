@@ -9,7 +9,7 @@ from concurrent.futures import ThreadPoolExecutor
 
 intents = discord.Intents.all()
 intents.members = True
-model = whisper.load_model('large')
+model = whisper.load_model('large',device = 'cuda')
 
 bot = commands.Bot(command_prefix='!', intents=intents)
 executor = ThreadPoolExecutor(max_workers=5)
@@ -39,8 +39,8 @@ async def join(ctx):
         await channel.connect()
 
 def read_file(sink):
-    with open('output.wav', 'rb') as file:
-        file.write(sink.get_all_audio())
+    with open('output.wav', 'wb') as file:
+        file.write(sink.get_all_audio()[0].getvalue())
 
 
 @bot.command()
@@ -56,7 +56,7 @@ async def record(ctx):
             for x in range(0, len(text), 4000):
                 await ctx.send(f'{text[x:x+4000]}')
         else:
-            ctx.send(text)
+            await ctx.send(text)
         #delete file
         os.remove('output.wav')
         
@@ -77,5 +77,17 @@ async def record(ctx):
     elif ctx.voice_client and ctx.voice_client.is_connected():
         sink = WaveSink()
         ctx.voice_client.start_recording(sink,my_callback)
+
+@bot.command()
+async def stop_record(ctx):
+    channel = ctx.author.voice.channel
+    if ctx.voice_client == None:
+        await ctx.send("You are not in a voice channel!")
+        return
+    ctx.voice_client.stop_recording()
+    await channel.disconnect()
+
+
+
 if __name__ == "__main__":
     bot.run('MTExMTkxMDkzNDUzMzkwMjMzNg.GyMKbx.RxIa_a38kk5YDBGGUHaGAutDk8krDLuOEvilKc')
