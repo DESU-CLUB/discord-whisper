@@ -2,14 +2,14 @@ import discord
 from discord.ext import commands
 from discord.sinks import WaveSink
 import os
-import whisper
 import asyncio
 from concurrent.futures import ThreadPoolExecutor
+from whisper_jax import FlaxWhisperPipline
 
 
 intents = discord.Intents.all()
 intents.members = True
-model = whisper.load_model('large',device = 'cuda')
+model =FlaxWhisperPipline("openai/whisper-large-v2")
 
 bot = commands.Bot(command_prefix='!', intents=intents)
 executor = ThreadPoolExecutor(max_workers=5)
@@ -23,7 +23,7 @@ async def on_ready():
 
 
 def transcribe(audio):
-    text = whisper.transcribe(model, audio)
+    text = model(audio)
     return text['text']
 
 @bot.command()
@@ -60,7 +60,6 @@ async def record(ctx):
         #delete file
         os.remove('output.wav')
         
-    channel = ctx.author.voice.channel
     if ctx.author.voice is None:
         await ctx.send("You are not in a voice channel!")
         return
@@ -68,6 +67,7 @@ async def record(ctx):
         await ctx.send("I'm already in a voice channel!")
         return
     else:
+        channel = ctx.author.voice.channel
         await channel.connect()
 
     if ctx.voice_client == None:
@@ -85,11 +85,11 @@ async def stop_record(ctx):
         await ctx.send("You are not in a voice channel!")
         return
     ctx.voice_client.stop_recording()
-    await channel.disconnect()
+    await ctx.voice_client.disconnect()
 
 
 
 if __name__ == "__main__":
-with open('botkey.txt','r') as f:
-		key = f.read()
-    bot.run(key)
+    with open('mykey.txt','r') as f:
+        key = f.read().strip()
+        bot.run(key)
