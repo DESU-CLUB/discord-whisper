@@ -18,6 +18,31 @@ model =FlaxWhisperPipline("openai/whisper-large-v2", dtype=jnp.float16)
 bot = commands.Bot(command_prefix='!', intents=intents)
 executor = ThreadPoolExecutor(max_workers=5)
 
+
+class MyHelp(commands.HelpCommand):
+    async def send_bot_help(self, mapping):
+        embed = discord.Embed(title="Help")
+        for cog, commands in mapping.items():
+           command_signatures = [self.get_command_signature(c) for c in commands]
+           if command_signatures:
+                cog_name = getattr(cog, "qualified_name", "No Category")
+                embed.add_field(name=cog_name, value="\n".join(command_signatures), inline=False)
+
+        channel = self.get_destination()
+        await channel.send(embed=embed)
+
+        
+    async def send_command_help(self, command):
+        embed = discord.Embed(title=self.get_command_signature(command), color=discord.Color.random())
+        if command.help:
+            embed.description = command.help
+        if alias := command.aliases:
+            embed.add_field(name="Aliases", value=", ".join(alias), inline=False)
+
+        channel = self.get_destination()
+        await channel.send(embed=embed)
+
+bot.help_command = MyHelp()
    
 @bot.event
 async def on_ready():
@@ -36,18 +61,6 @@ def transcribe(audio):
     print('FInish transcription', time.time()-start)
     os.unlink(audio)
     return text['text']
-
-@bot.command()
-async def join(ctx):
-    print(ctx)
-    channel = ctx.author.voice.channel
-    if ctx.author.voice is None:
-        await ctx.send("You are not in a voice channel!")
-        return
-    elif ctx.voice_client != None:
-        await ctx.send("I'm already in a voice channel!")
-    else:
-        await channel.connect()
 
 
 import io
@@ -111,7 +124,7 @@ def read_file(sink):
 
 
 
-@bot.command()
+@bot.command(help = "Record audio in a voice channel")
 async def record(ctx):
         #delete file        
     if ctx.author.voice is None:
@@ -138,7 +151,7 @@ async def record(ctx):
         await ctx.send('Unknown Error Found!')
         return
 
-@bot.command()
+@bot.command(help = "Stop recording audio in a voice channel, and transcribes it")
 async def stop_record(ctx):
     if ctx.voice_client is None:
         await ctx.send("I am not in a voice channel!")
@@ -151,7 +164,7 @@ async def stop_record(ctx):
         await ctx.send(f"An error occurred: {str(e)}")
     
     
-@bot.command()
+@bot.command(help = "Disconnect the bot from the voice channel")
 async def disconnect(ctx):
     if ctx.voice_client is None:
         await ctx.send("I am not in a voice channel!")
